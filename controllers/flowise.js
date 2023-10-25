@@ -1,3 +1,4 @@
+import { createAudioFile } from "./elevenLabs.js";
 export const createPrediction = async (req, res) => {
   const { message } = req.body;
   console.log(message);
@@ -11,19 +12,18 @@ export const createPrediction = async (req, res) => {
     // Call the flowise endpoint
     const response = await fetch(
       `${process.env.FLOWISE_URL}/api/v1/prediction/${process.env.FLOW_ID}`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${process.env.FLOWISE_API_KEY}`,
-              },
-              body: JSON.stringify(flowiseData),
-            }
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.FLOWISE_API_KEY}`,
+        },
+        body: JSON.stringify(flowiseData),
+      }
     );
 
     const FlowData = await response.json();
     console.log(FlowData);
-  
 
     // elevenlab
 
@@ -64,6 +64,7 @@ export const createPrediction = async (req, res) => {
    
 */
 
+    await createAudioFile(FlowData);
 
     res.status(200).json({ message: FlowData });
   } catch (error) {

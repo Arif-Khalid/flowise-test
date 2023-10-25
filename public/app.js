@@ -24,9 +24,14 @@ form.addEventListener("submit", async (e) => {
 
     responseEl.innerHTML = data.message;
 
-// call eleven
+    // call eleven
+    // call text to sppech on data.message
+    // mp3 will be generated
+    // call fetch audio function
 
-
+    const voice = new Audio("audioOutput.mp3");
+    console.log(voice);
+    voice.play();
   } catch (error) {
     responseEl.innerHTML = error.message;
   } finally {
